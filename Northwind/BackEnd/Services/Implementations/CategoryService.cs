@@ -15,9 +15,19 @@ namespace BackEnd.Services.Implementations
             _unidadDeTrabajo = unidadDeTrabajo;
         }
 
-        CategoryModel Convertir(Category category )
+
+
+        public bool AddCategory(CategoryModel category)
         {
-            return new CategoryModel { 
+            Category entity = Convertir(category);
+            _unidadDeTrabajo._categoryDAL.Add(entity);
+            return _unidadDeTrabajo.Complete();
+        }
+
+        CategoryModel Convertir(Category category)
+        {
+            return new CategoryModel
+            {
                 CategoryId = category.CategoryId,
                 CategoryName = category.CategoryName,
                 Description = category.Description
@@ -33,22 +43,16 @@ namespace BackEnd.Services.Implementations
                 Description = category.Description
             };
         }
-
-        public bool AddCategory(CategoryModel category)
-        {
-            Category entity = Convertir(category);
-            _unidadDeTrabajo._categoryDAL.Add(entity);
-            return _unidadDeTrabajo.Complete();
-        }
-
         public bool DeteleCategory(CategoryModel category)
         {
-            throw new NotImplementedException();
+            Category entity = Convertir(category);
+            _unidadDeTrabajo._categoryDAL.Remove(entity);
+            return _unidadDeTrabajo.Complete();
         }
 
         public CategoryModel GetById(int id)
         {
-           var entity = _unidadDeTrabajo._categoryDAL.Get(id);
+            var entity = _unidadDeTrabajo._categoryDAL.Get(id);
 
             CategoryModel categoryModel = Convertir(entity);
             return categoryModel;
@@ -61,16 +65,18 @@ namespace BackEnd.Services.Implementations
             List<CategoryModel> lista = new List<CategoryModel>();
             foreach (var category in result)
             {
-                lista.Add(Convertir(category));                  
-                    
+                lista.Add(Convertir(category));
+
 
             }
-           return lista;
+            return lista;
         }
 
         public bool UpdateCategory(CategoryModel category)
         {
-            throw new NotImplementedException();
+            Category entity = Convertir(category);
+            _unidadDeTrabajo._categoryDAL.Update(entity);
+            return _unidadDeTrabajo.Complete();
         }
     }
 }

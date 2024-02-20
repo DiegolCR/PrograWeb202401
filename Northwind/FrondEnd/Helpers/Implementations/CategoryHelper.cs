@@ -10,7 +10,7 @@ namespace FrontEnd.Helpers.Implementations
     public class CategoryHelper : ICategoryHelper
     {
         IServiceRepository ServiceRepository;
-       
+
         public CategoryHelper(IServiceRepository serviceRepository)
         {
             ServiceRepository = serviceRepository;
@@ -19,12 +19,12 @@ namespace FrontEnd.Helpers.Implementations
 
         public CategoryViewModel AddCategory(CategoryViewModel category)
         {
-           
+
             HttpResponseMessage responseMessage = ServiceRepository.PostResponse("api/Category", Convertir(category));
             if (responseMessage != null)
             {
                 var content = responseMessage.Content.ReadAsStringAsync().Result;
-              // var  categoryAPI = JsonConvert.DeserializeObject<Category>(content);
+                // var  categoryAPI = JsonConvert.DeserializeObject<Category>(content);
             }
 
             return category;
@@ -68,7 +68,7 @@ namespace FrontEnd.Helpers.Implementations
         public List<CategoryViewModel> GetCategories()
         {
             HttpResponseMessage responseMessage = ServiceRepository.GetResponse("api/category");
-            List<Category> resultado = new List<Category>() ;
+            List<Category> resultado = new List<Category>();
             if (responseMessage != null)
             {
                 var content = responseMessage.Content.ReadAsStringAsync().Result;
@@ -76,7 +76,7 @@ namespace FrontEnd.Helpers.Implementations
             }
             List<CategoryViewModel> lista = new List<CategoryViewModel>();
 
-            if (resultado!=null && resultado.Count>0)
+            if (resultado != null && resultado.Count > 0)
             {
                 foreach (var item in resultado)
                 {
@@ -85,7 +85,7 @@ namespace FrontEnd.Helpers.Implementations
             }
 
             return lista;
-            
+
 
 
         }
@@ -109,7 +109,7 @@ namespace FrontEnd.Helpers.Implementations
             if (responseMessage != null)
             {
                 var content = responseMessage.Content.ReadAsStringAsync().Result;
-             // var  categoryAPI = JsonConvert.DeserializeObject<Category>(content);
+                // var  categoryAPI = JsonConvert.DeserializeObject<Category>(content);
             }
 
             return category;
